@@ -11,7 +11,7 @@ var React = require("react");
 //                the new state (in this case, updating the class).
 //
 // You can pass properties to components using JSX attributes. You did it in
-// the last exercise! See the example below.
+// the last exercise! See the example below. -- did I??
 //
 // ```
 // <div className="example-class" attr1="ugabuga">[...]</div>
@@ -76,13 +76,15 @@ class WhatsYourName extends React.Component {
   //       entered to the input there.
   onNameChange(event) {
     // Huh... There's something wrong here...
-    this.setState({bad_attribute: "ChangeME!"});
+    this.setState({name: event.target.value});
+    
   }
 
   render() {
+    const welcomeMessage = this.state.name ? `Hello ${this.state.name}` : 'Hey there. Enter your name.';
     return (
       <div>
-        <p>Hello {this.state.name}</p>
+        <p>{welcomeMessage}</p>
         <input type="text" name="name" onChange={this.onNameChange} />
       </div>
     );

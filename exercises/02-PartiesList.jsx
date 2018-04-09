@@ -9,10 +9,15 @@ var React = require("react");
 class PartiesList extends React.Component {
   // We can put DOM elements delivered by React just like HTML elements.
   // Doesn't this code look familiar to you?
+
+  // This could be more difficult. Like calling a function that has a loop that generates parties
+  // just adding another <li> is not challenging
   render() {
+    let partyListMarkup = '';
     return (
-      <ul className="FILL ME">
-        <li>Party at Aperture Laboratories</li>
+      <ul className="parties-list">
+        <li>Party 1</li>
+        <li>Party 2</li>
       </ul>
     );
   }
