@@ -13,6 +13,9 @@ var React = require("react");
 //       Hint: Don't forget about adding the clearing list button to the
 //             `GroceryList` rendering method.
 
+// Too similar to the previous task, not challenging
+
+
 class GroceryList extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +47,7 @@ class GroceryList extends React.Component {
   // Fill the definition of the following method to allow clearing the list
   // Hint: You can just simply set the groceries to an empty array.
   clearList() {
-    // Put your code here
+    this.setState({groceries: []});
   }
 
   render() {
@@ -72,6 +75,7 @@ class GroceryList extends React.Component {
         </ul>
         {newProductInput}
         {newProductAddButton}
+        {clearListButton}
       </div>
     );
   }
