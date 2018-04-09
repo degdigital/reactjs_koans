@@ -80,8 +80,7 @@ class GroceryList extends React.Component {
 
   render() {
     let groceriesComponents = [],
-        newProductInput,
-        newProductAddButton,
+        addGroceryComponent,
         clearListButton;
     for(var index = 0; index < this.state.groceries.length; index++) {
       groceriesComponents.push(
@@ -92,17 +91,15 @@ class GroceryList extends React.Component {
       );
     }
 
-    newProductInput = <input className='new-item' type="text" onChange={this.inputChanged}/>;
-    newProductAddButton = <button className='add-product' onClick={this.addGroceryItem}>Add new Product</button>;
     clearListButton = <button className='clear-list' onClick={this.clearList}>Clear the List</button>;
+    addGroceryComponent = <GroceryListAdd inputChanged={this.inputChanged} addGroceryItem={this.addGroceryItem} />
 
     return (
       <div>
         <ul>
           {groceriesComponents}
         </ul>
-        {newProductInput}
-        {newProductAddButton}
+        {addGroceryComponent}
         {clearListButton}
       </div>
     );
@@ -122,6 +119,21 @@ class GroceryListItem extends React.Component {
       </li>
     );
   }
+}
+
+class GroceryListAdd extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      return (
+        <div>
+          <input className='new-item' type="text" onChange={this.props.inputChanged}/>;
+          <button className='add-product' onClick={this.props.addGroceryItem}>Add new Product</button>;
+        </div>
+      )
+    }
 }
 
 export default GroceryList;
