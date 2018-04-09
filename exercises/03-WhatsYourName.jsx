@@ -81,12 +81,7 @@ class WhatsYourName extends React.Component {
   }
 
   render() {
-    let welcomeMessage;
-    if (this.state.name) {
-      welcomeMessage = `Hello ${this.state.name}`;
-    } else {
-      welcomeMessage = "Hey there. Enter your name.";
-    }
+    const welcomeMessage = this.state.name ? `Hello ${this.state.name}` : 'Hey there. Enter your name.';
     return (
       <div>
         <p>{welcomeMessage}</p>
