@@ -34,6 +34,8 @@ var React = require("react");
 //                   yourself. You can perform manual-testing (meh.)
 //                   Or try to create your own tests.
 //                   Check out `test/05-Challange-GroceryList.js` for tests to this part.
+// ^^ could be an opportunity to explore differences between state and props
+// This was a good task because it wasn't complicated, but I had to do some research to figure out how react works
 
 class GroceryList extends React.Component {
   constructor(props) {
@@ -92,7 +94,7 @@ class GroceryList extends React.Component {
     }
 
     clearListButton = <button className='clear-list' onClick={this.clearList}>Clear the List</button>;
-    addGroceryComponent = <GroceryListAdd inputChanged={this.inputChanged} addGroceryItem={this.addGroceryItem} />
+    addGroceryComponent = <GroceryListAdd inputChanged={this.inputChanged} addGroceryItem={this.addGroceryItem} groceryName={this.state.newGroceryName} />
 
     return (
       <div>
@@ -129,8 +131,8 @@ class GroceryListAdd extends React.Component {
     render() {
       return (
         <div>
-          <input className='new-item' type="text" onChange={this.props.inputChanged}/>;
-          <button className='add-product' onClick={this.props.addGroceryItem}>Add new Product</button>;
+          <input className='new-item' type="text" onChange={this.props.inputChanged}/>
+          <button className='add-product' onClick={this.props.addGroceryItem} disabled={!this.props.groceryName.length}>Add new Product</button>
         </div>
       )
     }
