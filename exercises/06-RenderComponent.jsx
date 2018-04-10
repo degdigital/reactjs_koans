@@ -14,7 +14,8 @@ class Name extends React.Component {
 
 // See you got a domNode passed as a `domNode` argument.
 function renderNameComponent(domNode) {
-  // Put your code here
+  const nameEl = React.createElement(Name);
+  React.render(nameEl, domNode);
 }
 
 // Hint: You have to use the `React.render(ReactElement element, DOMNode node)` method.
@@ -30,5 +31,7 @@ function renderNameComponent(domNode) {
 //       that is using `React.createElement(ReactComponent component)`. E.g.
 //
 //       `let element = React.createElement(Name);`
+
+// ^^ this basically held my hand through what I needed to do. Maybe change to have someone look up element vs component
 
 export default renderNameComponent;
