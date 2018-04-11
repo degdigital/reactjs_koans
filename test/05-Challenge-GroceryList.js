@@ -108,4 +108,28 @@ describe("05 - Challenge - Grocery List", () => {
       assert.equal(groceryItem.props.className, "completed", "GroceriesListItem should be completed");
     });
   });
+
+  describe("Bonus Task 2 - disabling add if name empty", () => {
+
+    beforeEach( () => {
+      var elem = document.createElement('div');
+      elem = document.body.appendChild(elem);
+      component = React.render(React.createElement(GroceryListPart4), elem);
+    });
+
+    it('Should disable add button if no name', () => {
+      let newProductInput = React.addons.TestUtils.findRenderedDOMComponentWithClass(component, "new-item");
+      let newProductAddButton = React.addons.TestUtils.findRenderedDOMComponentWithClass(component, "add-product");
+      assert.equal(newProductAddButton.props.disabled, true);
+    });
+
+    it('Should enable button if name', () => {
+      let newProductInput = React.addons.TestUtils.findRenderedDOMComponentWithClass(component, "new-item");
+      let newProductAddButton = React.addons.TestUtils.findRenderedDOMComponentWithClass(component, "add-product");
+      assert.equal(newProductAddButton.props.disabled, true);
+
+      React.addons.TestUtils.Simulate.change(newProductInput.getDOMNode(), { target: {value: 'Oranges' }});
+      assert.equal(newProductAddButton.props.disabled, false);
+    });
+  });
 });

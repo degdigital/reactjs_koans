@@ -34,6 +34,8 @@ var React = require("react");
 //                   yourself. You can perform manual-testing (meh.)
 //                   Or try to create your own tests.
 //                   Check out `test/05-Challange-GroceryList.js` for tests to this part.
+// ^^ could be an opportunity to explore differences between state and props
+// This was a good task because it wasn't complicated, but I had to do some research to figure out how react works
 
 class GroceryList extends React.Component {
   constructor(props) {
@@ -50,16 +52,11 @@ class GroceryList extends React.Component {
 
     this.addGroceryItem = this.addGroceryItem.bind(this);
     this.clearList = this.clearList.bind(this);
-    this.inputChanged = this.inputChanged.bind(this);
   }
 
-  inputChanged(event) {
-    this.setState({ newGroceryName: event.target.value });
-  }
-
-  addGroceryItem() {
-    if(this.state.newGroceryName) {
-      let newGroceryItem = { name: this.state.newGroceryName, completed: false };
+  addGroceryItem(newGroceryName) {
+    if(newGroceryName) {
+      let newGroceryItem = { name: newGroceryName, completed: false };
       this.setState({
         groceries: this.state.groceries.concat([newGroceryItem])
       });
@@ -80,8 +77,7 @@ class GroceryList extends React.Component {
 
   render() {
     let groceriesComponents = [],
-        newProductInput,
-        newProductAddButton,
+        addGroceryComponent,
         clearListButton;
     for(var index = 0; index < this.state.groceries.length; index++) {
       groceriesComponents.push(
@@ -92,17 +88,15 @@ class GroceryList extends React.Component {
       );
     }
 
-    newProductInput = <input className='new-item' type="text" onChange={this.inputChanged}/>;
-    newProductAddButton = <button className='add-product' onClick={this.addGroceryItem}>Add new Product</button>;
     clearListButton = <button className='clear-list' onClick={this.clearList}>Clear the List</button>;
+    addGroceryComponent = <GroceryListAdd addGroceryItem={this.addGroceryItem} />
 
     return (
       <div>
         <ul>
           {groceriesComponents}
         </ul>
-        {newProductInput}
-        {newProductAddButton}
+        {addGroceryComponent}
         {clearListButton}
       </div>
     );
@@ -122,6 +116,29 @@ class GroceryListItem extends React.Component {
       </li>
     );
   }
+}
+
+class GroceryListAdd extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        groceryName: ''
+      }
+      this.inputChanged = this.inputChanged.bind(this);
+    }
+
+    inputChanged(event) {
+      this.setState({ groceryName: event.target.value });
+    }
+
+    render() {
+      return (
+        <div>
+          <input className='new-item' type="text" onChange={this.inputChanged} />
+          <button className='add-product' onClick={() => this.props.addGroceryItem(this.state.groceryName)} disabled={!this.state.groceryName.length}>Add new Product</button>
+        </div>
+      )
+    }
 }
 
 export default GroceryList;

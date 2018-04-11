@@ -30,18 +30,41 @@ import React from 'react';
 // There are more lifecycle methods available.
 // Those three presented are commonly used.
 //
+
+// This could have done more than just console.log things
+
+
 // Extra task: Learn about componentWillUpdate. What's the difference between
 //             this and the componentDidUpdate method? Think about the possible
 //             use cases of this lifecycle method.
+// componentWillUpdate is called once it is known that a component should update. This shoud be used to prep for updated data
+// it SHOULD NOT trigger an update itself.
+// componentDidMount is called after the render method and the DOM operations can happen here.
+
+
 // Extra task: Learn about componentWillMount. How can it be useful?
 //             (Hint: Think about server-side rendering of React components)
+// componentWillMount is called before the render method and setting state here won't call a re-render. 
+// this can be used to initialize data.
+
+
 // Extra task: Learn about componentWillReceiveProps. How it can be used?
 //             Is it fired when you render a component for the first time?
+// This can be used to update the state depdning on the existing and upcoming props. It does not trigger another rendering
+// No, it is not fired on initial rendering.
+
+
+
 // Extra task: There is a method which directly modifies behavior of React
 //             itself - it's called shouldComponentUpdate.
 //             How can you use it to optimise rendering cycle of your
 //             React components? Learn about PureRenderMixin.
-//
+// shouldComponentUpdate and allows the coder to define if re--rendering is needed or can be skipped
+// this can be used to conditionally re-render components based on state change. So if part of the state changes
+// that does not affect a particular component, there is no need to re-render it.
+
+
+
 // All lifecycle methods are described here:
 // http://facebook.github.io/react/docs/component-specs.html
 class LifecycleMethodsComponent extends React.Component {
@@ -56,6 +79,7 @@ class LifecycleMethodsComponent extends React.Component {
     // Task 1: Display a message "I'm mounted!" in developer's console when the
     //         component finishes mounting.
     //         Use `console.log` function for it.
+    console.log("I'm mounted!");
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -66,6 +90,8 @@ class LifecycleMethodsComponent extends React.Component {
     //         to previous values of properties and state.
     //         Think about it: Could you find a possible use case
     //                         for using previous state and properties values?
+    // You could use previous state to reset a page, or when going back
+    console.log("Updated!");
   }
 
   componentWillUnmount() {
@@ -77,6 +103,9 @@ class LifecycleMethodsComponent extends React.Component {
     //         you are listening for events. Your event listeners use setState
     //         directly. What will happen if you unmount the component?
     //         How can this lifecycle method help you to avoid such problems?
+    // When you unmount, the listeners could linger
+    // this method could help remove event listeners and prevent potential memory leaks
+    console.log("Goodby, cruel world! :(");
   }
 
   render() {
