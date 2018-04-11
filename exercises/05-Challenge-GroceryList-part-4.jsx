@@ -52,16 +52,11 @@ class GroceryList extends React.Component {
 
     this.addGroceryItem = this.addGroceryItem.bind(this);
     this.clearList = this.clearList.bind(this);
-    this.inputChanged = this.inputChanged.bind(this);
   }
 
-  inputChanged(event) {
-    this.setState({ newGroceryName: event.target.value });
-  }
-
-  addGroceryItem() {
-    if(this.state.newGroceryName) {
-      let newGroceryItem = { name: this.state.newGroceryName, completed: false };
+  addGroceryItem(newGroceryName) {
+    if(newGroceryName) {
+      let newGroceryItem = { name: newGroceryName, completed: false };
       this.setState({
         groceries: this.state.groceries.concat([newGroceryItem])
       });
@@ -94,7 +89,7 @@ class GroceryList extends React.Component {
     }
 
     clearListButton = <button className='clear-list' onClick={this.clearList}>Clear the List</button>;
-    addGroceryComponent = <GroceryListAdd inputChanged={this.inputChanged} addGroceryItem={this.addGroceryItem} groceryName={this.state.newGroceryName} />
+    addGroceryComponent = <GroceryListAdd addGroceryItem={this.addGroceryItem} />
 
     return (
       <div>
@@ -126,13 +121,21 @@ class GroceryListItem extends React.Component {
 class GroceryListAdd extends React.Component {
     constructor(props) {
       super(props);
+      this.state = {
+        groceryName: ''
+      }
+      this.inputChanged = this.inputChanged.bind(this);
+    }
+
+    inputChanged(event) {
+      this.setState({ groceryName: event.target.value });
     }
 
     render() {
       return (
         <div>
-          <input className='new-item' type="text" onChange={this.props.inputChanged}/>
-          <button className='add-product' onClick={this.props.addGroceryItem} disabled={!this.props.groceryName.length}>Add new Product</button>
+          <input className='new-item' type="text" onChange={this.inputChanged} />
+          <button className='add-product' onClick={() => this.props.addGroceryItem(this.state.groceryName)} disabled={!this.state.groceryName.length}>Add new Product</button>
         </div>
       )
     }
